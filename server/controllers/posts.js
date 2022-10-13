@@ -26,13 +26,23 @@ export const createPost = async (req, res) => {
     }
 }
 
-export const updatePost =  async (req, res) =>{
+export const updatePost =  async (req, res) => {
     const { id: _id } = req.params;
     const post = req.body;
 
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Tidak ada post dengan id tersebut!');
 
-    const updatePost = await PostMessage.findByIdAndUpdate(_id, post, { new: true });
+    const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, { new: true });
 
-    res.json(updatePost);
+    res.json(updatedPost);
+}
+
+export const deletePost = async (req, res) => {
+    const {id: _id} = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Tidak ada post dengan id tersebut!');
+
+    const deletedPost = await PostMessage.findByIdAndRemove(_id);
+    
+    res.json(deletedPost);
 }
