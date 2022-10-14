@@ -8,6 +8,10 @@ export default makeStyles((theme) => ({
     },
     paper: {
       padding: theme.spacing(2),
+      borderRadius: '15px',
+      boxShadow: '4px 6px 27px 13px rgba(0,0,0,0.72)',
+      WebkitBoxShadow: '4px 6px 27px 13px rgba(0,0,0,0.72)',
+      MozBoxShadow: '4px 6px 27px 13px rgba(0,0,0,0.72)',
     },
     form: {
       display: 'flex',
