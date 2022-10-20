@@ -2,10 +2,10 @@ import React, { useState, useEffect }from "react";
 import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core';
 import { useDispatch } from "react-redux";
 
-import { getPosts } from './actions/posts';
+import { getSchools } from './actions/schools';
 import Posts from './components/posts/posts';
 import Form from './components/form/form';
-import memories from './images/memories.png';
+import logoSd from './images/logsd.png';
 import useStyles from './styles';
 
 const App = () => {
@@ -14,16 +14,16 @@ const App = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getPosts());
+        dispatch(getSchools());
     }, [currentId, dispatch]);
 
     return (
         <Container maxWidth="lg">
             <AppBar className={classes.appBar} position="static" color="inherit">
                 <Typography className={classes.heading} variant="h2" align="center">
-                    Memories
+                    SkulApps
                 </Typography>
-                <img className={classes.image} src={memories} alt="memories" height="60"/>   
+                <img className={classes.image} src={logoSd} alt="logoSd" height="60"/>   
             </AppBar>
             <Grow in>
                 <Container>

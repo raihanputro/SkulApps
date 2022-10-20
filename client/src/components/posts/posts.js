@@ -7,17 +7,17 @@ import Post from './post/post';
 import useStyles from './styles';
 
 const Posts = ({ setCurrentId }) => {
-    const posts = useSelector((state) => state.posts);
+    const schools = useSelector((state) => state.schools);
     const classes = useStyles();
 
-    console.log(posts);
+    console.log(schools);
     
     return (
-        !posts.length ? <CircularProgress /> : (
+        !schools.length ? <CircularProgress /> : (
             <Grid className={classes.container} container alignItems="stretch" spacing={3}>
-                {posts.map((post) => (
-                    <Grid key={post._id} item xs={12} sm={6}>
-                        <Post post={post} setCurrentId={setCurrentId} />
+                {schools.map((school) => (
+                    <Grid key={school._id} item xs={12} sm={6}>
+                        <Post school={school} setCurrentId={setCurrentId} />
                     </Grid>
                 ))}
             </Grid>

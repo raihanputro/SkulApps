@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
-import PostMessage from "../models/postsMessage.js";
+import SchoolModel from "../models/schoolModels.js";
 
 
-export const getPosts = async (req, res) => {
+export const getSchools = async (req, res) => {
     try {
-        const postMessage = await PostMessage.find();
+        const postMessage = await SchoolModel.find();
 
         res.status(200).json(postMessage);
     } catch(error) {
@@ -12,10 +12,10 @@ export const getPosts = async (req, res) => {
     }
 }
 
-export const createPost = async (req, res) => {
+export const createSchool = async (req, res) => {
     const post = req.body;
 
-    const newPost = new PostMessage(post);
+    const newPost = new SchoolModel(post);
 
     try {
         await newPost.save()
@@ -26,34 +26,34 @@ export const createPost = async (req, res) => {
     }
 }
 
-export const updatePost =  async (req, res) => {
+export const updateSchool =  async (req, res) => {
     const { id: _id } = req.params;
     const post = req.body;
 
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Tidak ada post dengan id tersebut!');
 
-    const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, { new: true });
+    const updatedPost = await SchoolModel.findByIdAndUpdate(_id, post, { new: true });
 
     res.json(updatedPost);
 }
-
-export const deletePost = async (req, res) => {
+ 
+export const deleteSchool = async (req, res) => {
     const {id: _id} = req.params;
 
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Tidak ada post dengan id tersebut!');
 
-    const deletedPost = await PostMessage.findByIdAndRemove(_id);
+    const deletedPost = await SchoolModel.findByIdAndRemove(_id);
     
     res.json(deletedPost);
 }
 
-export const likePost = async (req, res) => {
+export const likeSchool = async (req, res) => {
     const {id: _id} = req.params;
 
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Tidak ada post dengan id tersebut!');
 
-    const post = await PostMessage.findById(_id);
-    const likedPost = await PostMessage.findByIdAndUpdate(_id, { likeCount: post.likeCount + 1}, { new: true });
+    const post = await SchoolModel.findById(_id);
+    const likedPost = await SchoolModel.findByIdAndUpdate(_id, { likeCount: post.likeCount + 1}, { new: true });
 
-    res.json(likedPost);
+    res.json(likedPost); 
 }

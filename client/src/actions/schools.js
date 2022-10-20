@@ -1,9 +1,9 @@
 import * as api from '../api';
 import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes';
 
-export const getPosts = () => async (dispatch) => {
+export const getSchools = () => async (dispatch) => {
     try {
-        const { data } = await api.fetchPosts();
+        const { data } = await api.fetchSchools();
 
         dispatch({ type: FETCH_ALL, payload: data });
     } catch(error) {
@@ -11,9 +11,9 @@ export const getPosts = () => async (dispatch) => {
     }
 };
 
-export const createPost = (post) => async (dispatch) => {
+export const createSchool = (post) => async (dispatch) => {
     try {
-        const { data } = await api.createPost(post);
+        const { data } = await api.createSchool(post);
 
         dispatch({ type: CREATE, payload: data })
     } catch (error) {
@@ -21,9 +21,9 @@ export const createPost = (post) => async (dispatch) => {
     }
 };
 
-export const updatePost = (id, post) => async (dispatch) => {
+export const updateSchool = (id, school) => async (dispatch) => {
     try {
-        const { data } = await api.updatePost(id, post);
+        const { data } = await api.updateSchool(id, school);
 
         dispatch({ type: UPDATE, payload: data })
     } catch (error) {
@@ -31,9 +31,9 @@ export const updatePost = (id, post) => async (dispatch) => {
     }
 };
 
-export const deletePost = (id) => async (dispatch) => {
+export const deleteSchool = (id) => async (dispatch) => {
     try {
-        await api.deletePost(id);
+        await api.deleteSchool(id);
 
         dispatch({ type: DELETE, payload: id})
     } catch (error) {
@@ -41,9 +41,9 @@ export const deletePost = (id) => async (dispatch) => {
     }
 }
 
-export const likePost = (id) => async (dispatch) => {
+export const likeSchool = (id) => async (dispatch) => {
     try {
-        const { data } = await api.likePost(id);
+        const { data } = await api.likeSchool(id);
 
         dispatch({ type: LIKE, payload: data })
     } catch (error) {
