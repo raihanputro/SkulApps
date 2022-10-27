@@ -4,16 +4,19 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotEnv from 'dotenv';
 
-import postRoutes from './routes/schools.js'
+import schoolRoutes from './routes/schoolRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 const app = express();
 dotEnv.config();
 
 app.use(bodyParser.json({limit: "30mb", extended: true}));
 app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
+app.use(express.json());
 app.use(cors());
 
-app.use('/schools', postRoutes);
+app.use('/schools', schoolRoutes);
+app.use('/users', userRoutes);
 
 const PORT = process.env.PORT;
 

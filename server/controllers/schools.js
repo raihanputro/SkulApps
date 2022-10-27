@@ -13,14 +13,14 @@ export const getSchools = async (req, res) => {
 }
 
 export const createSchool = async (req, res) => {
-    const post = req.body;
+    const school = req.body;
 
-    const newPost = new SchoolModel(post);
+    const newSchool = new SchoolModel(school);
 
     try {
-        await newPost.save()
+        await newSchool.save()
 
-        res.status(201).json(newPost);
+        res.status(201).json(newSchool);
     } catch(error) {
         res.status(409).json({ message: error.message});
     }
