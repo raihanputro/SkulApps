@@ -1,13 +1,28 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { AppBar, Avatar, Toolbar, Typography, Button } from "@material-ui/core";
-import logoSd from '../../images/logsd.png';
 import useStyles from './styles';
+import { LOGOUT } from "../../constants/actionTypes";
 
 const Navbar = () => {
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location =  useLocation();
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
 
-    const user = null;
+    const logout = () => {
+        dispatch({type: LOGOUT});
+        setUser(null);
+        navigate('/');
+    }   
+
+    useEffect(() => {
+        const token = user?.token;
+
+        setUser(JSON.parse(localStorage.getItem('profile')));
+    }, [location])
 
     return (
         <AppBar className={classes.appBar} position="static" color="inherit">
@@ -15,19 +30,18 @@ const Navbar = () => {
                 <Typography component={Link} to="/" className={classes.heading} variant="h2" align="center">
                     SkulApps
                 </Typography>
-                <img className={classes.image} src={logoSd} alt="logoSd" height="60"/> 
             </div>
             <Toolbar className={classes.toolbar}> 
                 {user ? (
                     <div className={classes.profile}>
-                        <Avatar className={classes.purple} alt={user.result.name} src={user.result.profilePic}>
-                            {user.result.name.charAt(0)}
+                        <Avatar className={classes.purple} alt={user?.result.name} src={user?.result.picture}>
+                            {user?.result.name.charAt(0)} 
                         </Avatar>
                         <Typography className={classes.userName} variant="h6">{user.result.name}</Typography>
-                        <Button variant="contained" className={classes.logout} color="secondary">Logout</Button>
+                        <Button variant="contained" className={classes.logout} color="secondary" onClick={logout}>Keluar</Button>
                     </div>
                 ) : (
-                    <Button component={Link} to="/auth" variant="contained" color="primary">Sign in</Button>
+                    <Button component={Link} to="/auth" variant="contained" color="primary">Masuk</Button>
                 )}
             </Toolbar>
         </AppBar>
