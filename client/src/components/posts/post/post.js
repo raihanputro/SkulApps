@@ -16,7 +16,7 @@ const Post = ({ school, setCurrentId }) => {
 
     return (
             <Card className={classes.card}>
-                <CardMedia className={classes.media} image={school.selectedFile} title={school.name} />
+                <CardMedia className={classes.media} image={school.schoolImage} title={school.name} />
                 <div className={classes.overlay2}>
                     <Button style={{color: 'black'}} size="small" onClick={() => setCurrentId(school._id)}>
                         <MoreHorizIcon fontSize="medium" />

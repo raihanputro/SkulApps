@@ -1,6 +1,6 @@
 import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from "../constants/actionTypes";
 
-export default (schools = [], action) => {
+const schoolReducers =  (schools = [], action) => {
     switch (action.type) {
         case FETCH_ALL:
             return action.payload;
@@ -13,6 +13,8 @@ export default (schools = [], action) => {
         case LIKE: 
             return schools.map((school) => (school._id === action.payload._id ? action.payload : school));
         default:
-            return schools;
+            return schools; 
     }
 }
+
+export default schoolReducers;

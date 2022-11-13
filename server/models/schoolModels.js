@@ -8,7 +8,7 @@ const schoolSchema = mongoose.Schema({
     desc: String,
     author: String,
     tags: [String],
-    selectedFile: String,
+    schoolImage: String,
     likeCount: {
         type: Number,
         default: 0

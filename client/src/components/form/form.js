@@ -7,7 +7,7 @@ import { TextField, MenuItem, Button, Typography, Paper } from "@material-ui/cor
 import { createSchool, updateSchool } from "../../actions/schools";
 
 const Form = ({ currentId, setCurrentId }) => {
-    const [schoolData, setSchoolData] = useState({name: '', npsn: '', status: '', addres: '', desc: '', author: '', tags: '', selectedFile: ''});
+    const [schoolData, setSchoolData] = useState({name: '', npsn: '', status: '', addres: '', desc: '', author: '', tags: '', schoolImage: ''});
     const school = useSelector((state) => (currentId ? state.schools.find((s) => s._id === currentId) : null));
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
     const clear = () => {
         setCurrentId(null);
-        setSchoolData({ name: '', npsn: '', status: '', addres: '', desc: '', author: '', tags: '', selectedFile: '' });
+        setSchoolData({ name: '', npsn: '', status: '', addres: '', desc: '', author: '', tags: '', schoolImage: '' });
     }
 
     const statuses = [
@@ -54,9 +54,9 @@ const Form = ({ currentId, setCurrentId }) => {
                 <TextField select name="status" variant="outlined" color="secondary" label="Status Sekolah" fullWidth value={schoolData.status} onChange={(e) => setSchoolData({ ...schoolData, status: e.target.value })} helperText="Silahkan isi status sekolah"> {statuses.map((option) => (<MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>))} </TextField>
                 <TextField  name="addres" variant="outlined" color="secondary" label="Alamat Sekolah" fullWidth value={schoolData.addres} onChange={(e) => setSchoolData({ ...schoolData, addres: e.target.value })} helperText="Silahkan isi alamat sekolah"/>
                 <TextField multiline name="desc" variant="outlined" color="secondary" label="Deskripsi Sekolah" fullWidth value={schoolData.desc} onChange={(e) => setSchoolData({ ...schoolData, desc: e.target.value })} helperText="Silahkan isi deskripsi sekolah"/>
-                <TextField name="tags" variant="outlined" color="secondary" label="Tag Sekolah" fullWidth value={schoolData.tags} onChange={(e) => setSchoolData({ ...schoolData, tags: e.target.value.split(',') })} helperText="Silahkan isi tag sekolah"/>
+                <TextField name="tags" variant="outlined" color="secondary" label="Tag Sekolah" fullWidth value={schoolData.tags} onChange={(e) => setSchoolData({ ...schoolData, tags: e.target.value.split(',') })} helperText="Silahkan isi tag sekolah (dipisahkan dengan tanda koma)"/>
                 <div className={classes.fileInput}>
-                    <FileBase type="file" multiple={false} onDone = {({ base64 }) => setSchoolData({ ...schoolData, selectedFile: base64 }) }/> 
+                    <FileBase type="file" multiple={false} onDone = {({ base64 }) => setSchoolData({ ...schoolData, schoolImage: base64 }) }/> 
                 </div>
                 <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Kirim</Button>
             </form>
