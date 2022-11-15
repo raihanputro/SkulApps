@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { AppBar, Avatar, Toolbar, Typography, Button } from "@material-ui/core";
 import useStyles from './styles';
 import { LOGOUT } from "../../constants/actionTypes";
+import decode from "jwt-decode";
 
 const Navbar = () => {
     const classes = useStyles();
@@ -20,6 +21,14 @@ const Navbar = () => {
 
     useEffect(() => {
         const token = user?.token;
+
+        if(token) {
+            const decodedToken = decode(token);
+
+            if(decodedToken.exp * 1000 < new Date().getTime()) {
+                logout();
+            }
+        }
 
         setUser(JSON.parse(localStorage.getItem('profile')));
     }, [location])

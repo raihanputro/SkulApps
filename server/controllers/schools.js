@@ -15,7 +15,7 @@ export const getSchools = async (req, res) => {
 export const createSchool = async (req, res) => {
     const school = req.body;
 
-    const newSchool = new SchoolModel(school);
+    const newSchool = new SchoolModel({...school, authorId: req.userId, createdAt: new Date().toISOString() });
 
     try {
         await newSchool.save()
@@ -48,12 +48,23 @@ export const deleteSchool = async (req, res) => {
 }
 
 export const likeSchool = async (req, res) => {
-    const {id: _id} = req.params;
+    const { id } = req.params;
 
-    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Tidak ada post dengan id tersebut!');
+    if(!req.userId) return res.json({ message: "Tidak terautentikasi!"});
 
-    const post = await SchoolModel.findById(_id);
-    const likedPost = await SchoolModel.findByIdAndUpdate(_id, { likeCount: post.likeCount + 1}, { new: true });
+    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('Tidak ada post dengan id tersebut!');
+
+    const post = await SchoolModel.findById(id);
+
+    const index = post.likes.findIndex((id) => id === String(req.userId));
+
+    if(index === -1) {
+        post.likes.push(req.userId);
+    } else {
+        post.likes = post.likes.filter((id) => id !== String(req.userId));
+    }
+
+    const likedPost = await SchoolModel.findByIdAndUpdate(id, post, { new: true });
 
     res.json(likedPost); 
 }

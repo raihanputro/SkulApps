@@ -1,11 +1,20 @@
 import axios from 'axios';
 
+const API = axios.create({ baseURL: 'http://localhost:5000'});
 
-const urlSchools = 'http://localhost:5000/schools';
+API.interceptors.request.use((req) => {
+    if(localStorage.getItem('profile')) {
+        req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
+    }
 
-export const fetchSchools = () => axios.get(urlSchools);
-export const createSchool = (newSchool) => axios.post(urlSchools, newSchool);
-export const updateSchool = (id, updatedSchool) => axios.patch(`${urlSchools}/${id}`, updatedSchool);
-export const deleteSchool = (id) => axios.delete(`${urlSchools}/${id}`);
-export const likeSchool = (id) => axios.patch(`${urlSchools}/${id}/likeSchool`);
+    return req;
+});
 
+export const fetchSchools = () => API.get('/schools');
+export const createSchool = (newSchool) => API.post('/schools', newSchool);
+export const updateSchool = (id, updatedSchool) => API.patch(`/schools/${id}`, updatedSchool);
+export const deleteSchool = (id) => API.delete(`/schools/${id}`);
+export const likeSchool = (id) => API.patch(`/schools/${id}/likeSchool`);
+
+export const signIn = (formData) => API.post('/users/signin', formData);
+export const signUp = (formData) => API.post('/users/signup', formData);

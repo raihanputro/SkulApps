@@ -17,7 +17,7 @@ const Home = () => {
     }, [currentId, dispatch]);
 
     return (
-        <Grow in>
+            <Grow in>
                 <Container>
                     <Grid container className={classes.mainContainer} justifyContent="space-between" alignItems="stretch" spacing={3}>
                         <Grid item xs={12} sm={7}>

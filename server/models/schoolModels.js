@@ -6,12 +6,13 @@ const schoolSchema = mongoose.Schema({
     status: String,
     addres: String,
     desc: String,
-    author: String,
+    authorId: String,
+    authorName: String,
     tags: [String],
     schoolImage: String,
-    likeCount: {
-        type: Number,
-        default: 0
+    likes: {
+        type: [String],
+        default: []
     },
     createdAt: {
         type: Date,

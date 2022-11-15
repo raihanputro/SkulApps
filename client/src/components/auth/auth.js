@@ -9,43 +9,40 @@ import Input from './input';
 // import Icon from './icon';
 import useStyles from './styles';
 import { AUTH } from '../../constants/actionTypes';
+import { signin, signup } from '../../actions/auth';
 // import { createOrGetUser } from '../../api';
 
 const Auth = () => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignUp] =  useState(false);
+  const [formData, setFormData] =  useState({name: '', email: '', password: '', confirmPassword: ''});
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword );
 
-  const handleSubmit = () => {
-  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if(isSignup){
+      dispatch(signup(formData, navigate))
+    } else {
+      dispatch(signin(formData, navigate))
+    }
   }
 
-  const handleChange = () => {
-
+  const handleChange = (e) => {
+    setFormData({...formData, [e.target.name]: e.target.value})
   }
 
   const switchMode = () => {
     setIsSignUp((prevIsSignup) => !prevIsSignup);
-    handleShowPassword(false);
+    setShowPassword(false);
   }
 
   const googleSuccess = async(res) => {
-    // const {sub, email, family_name, given_name, name,  imageUrl} = jwt_decoded(res.credential);
-
-    // const result = {
-    //   id: sub,
-    //   email: email,
-    //   familyName: family_name,
-    //   givenName: given_name,
-    //   name: name,
-    //   picture: imageUrl
-    // }
 
     const result = jwt_decoded(res.credential);
-
     const token = res.credential;
   
     try { 
