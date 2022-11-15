@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
 import LockOutlienedIcon from '@material-ui/icons/LockOutlined';
-import { GoogleLogin, googleLogout } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 import jwt_decoded from 'jwt-decode';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Input from './input';
-// import Icon from './icon';
 import useStyles from './styles';
 import { AUTH } from '../../constants/actionTypes';
 import { signin, signup } from '../../actions/auth';
-// import { createOrGetUser } from '../../api';
+
 
 const Auth = () => {
   const classes = useStyles();
