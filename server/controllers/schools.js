@@ -3,12 +3,32 @@ import SchoolModel from "../models/schoolModels.js";
 
 
 export const getSchools = async (req, res) => {
-    try {
-        const postMessage = await SchoolModel.find();
+    const { page } = req.query;
 
-        res.status(200).json(postMessage);
+    try {
+        const limit = 9;
+        const startIndex = (Number(page) -1 ) * limit;
+        const total = await SchoolModel.countDocuments({});
+
+        const schools = await SchoolModel.find().sort({ _id: -1}).limit(limit).skip(startIndex);
+
+        res.json({ data: schools, currentPage: Number(page), numberOfPage: Math.ceil(total / limit) });
     } catch(error) {
         res.status(404).json({ message: error.message });
+    }
+}
+
+export const getSchoolsBySearch = async (req, res) => {
+    const { searchQuery, tags } = req.query;
+
+    try {
+        const name = new RegExp(searchQuery, "i"); 
+
+        const schools = await SchoolModel.find({ $or: [ {name}, { tags: { $in: tags.split(',') }} ]});
+
+        res.json({ data: schools });
+    } catch (error) {
+        res.status(404).json({ message: error.message});
     }
 }
 

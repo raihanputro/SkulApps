@@ -7,16 +7,16 @@ import Post from './post/post';
 import useStyles from './styles';
 
 const Posts = ({ setCurrentId }) => {
-    const schools = useSelector((state) => state.schools);
+    const { schools, isLoading } = useSelector((state) => state.schools);
     const classes = useStyles();
 
-    console.log(schools);
+    if(!schools.length && !isLoading) return 'Tidak ada postingan sekolah!';
     
     return (
-        !schools.length ? <CircularProgress /> : (
+        isLoading ? <CircularProgress /> : (
             <Grid className={classes.container} container alignItems="stretch" spacing={3}>
                 {schools.map((school) => (
-                    <Grid key={school._id} item xs={12} sm={6}>
+                    <Grid key={school._id} item xs={12} sm={12} md={6} lg={4}>
                         <Post school={school} setCurrentId={setCurrentId} />
                     </Grid>
                 ))}

@@ -1,19 +1,51 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from "../constants/actionTypes";
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, START_LOADING, END_LOADING } from "../constants/actionTypes";
 
-const schoolReducers =  (schools = [], action) => {
+const schoolReducers =  (state = { isLoading: true, schools: []}, action) => {
     switch (action.type) {
         case FETCH_ALL:
-            return action.payload;
+            return {
+                ...state,
+                schools: action.payload.data,
+                currentPage: action.payload.currentPage,
+                numberOfPage: action.payload.numberOfPage
+            }; 
+        case FETCH_BY_SEARCH:
+            return {
+                ...state,
+                schools: action.payload,
+            };
+        case START_LOADING:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case END_LOADING:
+            return {
+                ...state,
+                isLoading: false,
+            };
         case CREATE:
-            return [ ...schools, action.payload ];
+            return { 
+                ...state, 
+                schools: [...state.schools, action.payload] 
+            };
         case UPDATE:
-            return schools.map((school) => (school._id === action.payload._id ? action.payload : school));
+            return {
+                ...state,
+                schools: state.schools.map((school) => (school._id === action.payload._id ? action.payload : school))
+            };
         case DELETE: 
-            return schools.filter((school) => school._id !== action.payload);
+            return {
+                ...state,
+                schools: state.schools.filter((school) => school._id !== action.payload)
+            };
         case LIKE: 
-            return schools.map((school) => (school._id === action.payload._id ? action.payload : school));
+            return {
+                ...state,
+                schools: state.schools.map((school) => (school._id === action.payload._id ? action.payload : school))
+            };
         default:
-            return schools; 
+            return state;
     }
 }
 

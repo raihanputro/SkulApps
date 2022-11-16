@@ -10,7 +10,8 @@ API.interceptors.request.use((req) => {
     return req;
 });
 
-export const fetchSchools = () => API.get('/schools');
+export const fetchSchools = (page) => API.get(`/schools?page=${page}`);
+export const fetchSchoolsBySearch = (searchQuery) => API.get(`/schools/search?searchQuery=${searchQuery.search || null}&tags=${searchQuery.tags}`);
 export const createSchool = (newSchool) => API.post('/schools', newSchool);
 export const updateSchool = (id, updatedSchool) => API.patch(`/schools/${id}`, updatedSchool);
 export const deleteSchool = (id) => API.delete(`/schools/${id}`);
