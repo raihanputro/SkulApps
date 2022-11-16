@@ -32,7 +32,7 @@ const Post = ({ school, setCurrentId }) => {
     }
 
     return (
-            <Card className={classes.card}>
+            <Card className={classes.card} raised elevation={6}>
                 <CardMedia className={classes.media} image={school.schoolImage} title={school.name} />
                 {(user?.result?.sub === school?.authorId || user?.result?._id === school?.authorId) && (
                     <div className={classes.overlay2}>
