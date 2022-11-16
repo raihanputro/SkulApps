@@ -55,7 +55,7 @@ const Form = ({ currentId, setCurrentId }) => {
     ]
 
     return (
-        <Paper className={classes.paper}>
+        <Paper className={classes.paper} elevation={6}>
             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
                 <Typography variant="h6">{ currentId ? `Edit ${school.name}` : 'Masukkan Sekolah'}</Typography>
                 <TextField name="name" variant="outlined" color="secondary" label="Nama Sekolah" fullWidth value={schoolData.name} onChange={(e) => setSchoolData({ ...schoolData, name: e.target.value })} helperText="Silahkan isi nama sekolah"/>
