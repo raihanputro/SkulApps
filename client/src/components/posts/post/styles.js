@@ -43,6 +43,10 @@ export default makeStyles(() => ({
     title: {
       padding: '0 16px',
     },
+    cardAction: {
+      display: 'block',
+      textAlign: 'initial',
+    },
     cardActions: {
       padding: '0 16px 8px 16px',
       display: 'flex',

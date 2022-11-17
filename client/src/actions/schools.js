@@ -1,5 +1,18 @@
 import * as api from '../api';
-import { FETCH_ALL, FETCH_BY_SEARCH, START_LOADING, END_LOADING, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes';
+import { FETCH_ALL, FETCH_BY_SEARCH, START_LOADING, END_LOADING, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_ID } from '../constants/actionTypes';
+
+export const getSchool = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: START_LOADING });
+
+        const { data } = await api.fetchSchool(id);
+
+        dispatch({ type: FETCH_BY_ID, payload: {school: data}});
+        dispatch({ type: END_LOADING });
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 export const getSchools = (page) => async (dispatch) => {
     try {
@@ -28,13 +41,13 @@ export const getSchoolsBySearch = (searchQuery) => async (dispatch) => {
     }
 }
 
-export const createSchool = (post) => async (dispatch) => {
+export const createSchool = (school) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });
-        const { data } = await api.createSchool(post);
+        const { data } = await api.createSchool(school);
 
         dispatch({ type: CREATE, payload: data });
-        dispatch({ type: START_LOADING });
+        dispatch({ type: END_LOADING });
     } catch (error) {
         console.log(error)
     }

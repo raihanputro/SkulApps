@@ -1,10 +1,12 @@
 import express from "express";
 
-import { getSchools, getSchoolsBySearch, createSchool, updateSchool, deleteSchool, likeSchool } from '../controllers/schools.js';
+import { getSchool, getSchools, getSchoolsBySearch, createSchool, updateSchool, deleteSchool, likeSchool } from '../controllers/schools.js';
 import auth from "../middlewares/auth.js";
 
 const router = express.Router();
 
+router.get('/:id', getSchool);
+// router.get('/:id', getSchool);
 router.get('/', getSchools);
 router.get('/search', getSchoolsBySearch);
 router.post('/', auth, createSchool);

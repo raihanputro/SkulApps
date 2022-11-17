@@ -1,6 +1,6 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, START_LOADING, END_LOADING } from "../constants/actionTypes";
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, START_LOADING, END_LOADING, FETCH_BY_ID } from "../constants/actionTypes";
 
-const schoolReducers =  (state = { isLoading: true, schools: []}, action) => {
+const schoolReducers =  (state = { isLoading: true, schools: [] }, action) => {
     switch (action.type) {
         case FETCH_ALL:
             return {
@@ -13,6 +13,11 @@ const schoolReducers =  (state = { isLoading: true, schools: []}, action) => {
             return {
                 ...state,
                 schools: action.payload,
+            };
+        case FETCH_BY_ID:
+            return {
+                ...state,
+                school: action.payload.school,
             };
         case START_LOADING:
             return {
